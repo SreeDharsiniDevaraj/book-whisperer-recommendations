@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Search, BookOpen, Star } from 'lucide-react';
+import { Search, BookOpen, Star, Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface BookDetails {
@@ -30,6 +30,12 @@ const BookRecommender = () => {
   const [inputBook, setInputBook] = useState('');
   const [recommendations, setRecommendations] = useState<Book[]>([]);
   const [loading, setLoading] = useState(false);
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [contactLoading, setContactLoading] = useState(false);
   const { toast } = useToast();
 
   const getBookRecommendations = async (bookName: string) => {
@@ -121,6 +127,28 @@ const BookRecommender = () => {
     if (inputBook.trim()) {
       getBookRecommendations(inputBook.trim());
     }
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactLoading(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. We'll get back to you soon.",
+      });
+      setContactForm({ name: '', email: '', message: '' });
+      setContactLoading(false);
+    }, 1000);
+  };
+
+  const handleContactInputChange = (field: string, value: string) => {
+    setContactForm(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   const truncateText = (text: string, maxLength: number) => {
@@ -250,16 +278,177 @@ const BookRecommender = () => {
           </div>
         )}
 
+        {/* Contact Section */}
+        <section className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 text-foreground font-playfair">
+              Get in <span className="text-primary">Touch</span>
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Have questions about our recommendations? Want to suggest improvements? 
+              We'd love to hear from you!
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Information */}
+            <div className="space-y-8">
+              <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-playfair">Contact Information</CardTitle>
+                  <CardDescription>
+                    Reach out to us through any of these channels
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-primary/10 rounded-full">
+                      <Mail className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">Email</p>
+                      <p className="text-muted-foreground">hello@bookwhisperer.com</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-primary/10 rounded-full">
+                      <Phone className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">Phone</p>
+                      <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4">
+                    <div className="p-3 bg-primary/10 rounded-full">
+                      <MapPin className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold">Address</p>
+                      <p className="text-muted-foreground">
+                        123 Literary Lane<br />
+                        Book City, BC 12345
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-0 shadow-lg">
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg mb-3">Office Hours</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>Monday - Friday</span>
+                      <span>9:00 AM - 6:00 PM</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Saturday</span>
+                      <span>10:00 AM - 4:00 PM</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Sunday</span>
+                      <span>Closed</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Contact Form */}
+            <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-2xl font-playfair">Send us a Message</CardTitle>
+                <CardDescription>
+                  We'll get back to you within 24 hours
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleContactSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-sm font-medium">
+                        Name *
+                      </label>
+                      <Input
+                        id="name"
+                        type="text"
+                        placeholder="Your full name"
+                        value={contactForm.name}
+                        onChange={(e) => handleContactInputChange('name', e.target.value)}
+                        required
+                        className="transition-all duration-300 focus:border-primary/50"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium">
+                        Email *
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="your.email@example.com"
+                        value={contactForm.email}
+                        onChange={(e) => handleContactInputChange('email', e.target.value)}
+                        required
+                        className="transition-all duration-300 focus:border-primary/50"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-sm font-medium">
+                      Message *
+                    </label>
+                    <Textarea
+                      id="message"
+                      placeholder="Tell us about your question, suggestion, or feedback..."
+                      value={contactForm.message}
+                      onChange={(e) => handleContactInputChange('message', e.target.value)}
+                      required
+                      rows={5}
+                      className="transition-all duration-300 focus:border-primary/50 resize-none"
+                    />
+                  </div>
+                  
+                  <Button
+                    type="submit"
+                    disabled={contactLoading || !contactForm.name || !contactForm.email || !contactForm.message}
+                    className="w-full py-3 text-lg font-semibold bg-primary hover:bg-primary/90 transition-all duration-300 transform hover:scale-[1.02]"
+                  >
+                    {contactLoading ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                        <span>Sending...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2">
+                        <Send className="h-5 w-5" />
+                        <span>Send Message</span>
+                      </div>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* Footer */}
         <footer className="mt-20 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50">
               <h3 className="text-2xl font-bold mb-4 font-playfair">About Book Whisperer</h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed mb-6">
                 Our intelligent recommendation system analyzes genres, authors, and reader preferences 
                 to curate personalized book suggestions. Discover new worlds, explore different perspectives, 
                 and find your next favorite read with the power of literary intelligence.
               </p>
+              <div className="text-sm text-muted-foreground border-t border-border/50 pt-4">
+                <p>&copy; 2024 Book Whisperer. All rights reserved.</p>
+              </div>
             </div>
           </div>
         </footer>
