@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Search, BookOpen, Star, Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Search, BookOpen, Star, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface BookDetails {
@@ -290,53 +290,7 @@ const BookRecommender = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-playfair">Contact Information</CardTitle>
-                  <CardDescription>
-                    Reach out to us through any of these channels
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                      <Mail className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">Email</p>
-                      <p className="text-muted-foreground">hello@bookwhisperer.com</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                      <Phone className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">Phone</p>
-                      <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                      <MapPin className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">Address</p>
-                      <p className="text-muted-foreground">
-                        123 Literary Lane<br />
-                        Book City, BC 12345
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
+          <div className="max-w-2xl mx-auto">
             {/* Contact Form */}
             <Card className="bg-card/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
