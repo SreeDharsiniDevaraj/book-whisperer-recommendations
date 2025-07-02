@@ -335,26 +335,6 @@ const BookRecommender = () => {
                   </div>
                 </CardContent>
               </Card>
-
-              <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-0 shadow-lg">
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-3">Office Hours</h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>Monday - Friday</span>
-                      <span>9:00 AM - 6:00 PM</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Saturday</span>
-                      <span>10:00 AM - 4:00 PM</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sunday</span>
-                      <span>Closed</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             {/* Contact Form */}
